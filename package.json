@@ -1,0 +1,11 @@
+{
+  "name": "bolognese",
+  "version": "1.0.0",
+  "description": "A simple pomodoro timer/ tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Schrotty",
+  "license": "MIT"
+}
