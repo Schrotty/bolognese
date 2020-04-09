@@ -1,21 +1,24 @@
 $font-stack: 'Roboto', sans-serif;
 $primary-color: #333;
 $header-color: rgb(243, 243, 243);
-$buttons-color: rgb(93, 15, 89);
+$buttons-color: rgb(142, 68, 173);
+$action-color: rgb(52, 73, 94);
 
 /* COLORS */
-$green: rgb(29, 146, 68);
-$red: rgb(163, 37, 37);
-$grey: rgb(107, 107, 107);
+$green: rgb(39, 174, 96);
+$red: rgb(192, 57, 43);
+$grey: rgb(44, 62, 80);
 
 /* Base style */
 body {
   font: 100% $font-stack;
+  font-weight: 100 !important;
   color: $primary-color;
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: rgb(189, 195, 199);
 }
 
 h1 {
@@ -26,16 +29,44 @@ h1 {
   margin: 0 !important;
 }
 
+h1 small {
+  font-weight: 100;
+  font-size: 60%;
+}
+
+h2 {
+  font-size: 10rem;
+  line-height: 15rem;
+  font-weight: 100;
+}
+
+sup {
+  font-size: 59%;
+}
+
+button {
+  padding: 0;
+  font-weight: 400 !important;
+}
+
+.content {
+  height: 100%;
+}
+
 .green {
-  background-color: $green;
+  background-color: $green !important;
 }
 
 .red {
-  background-color: $red;
+  background-color: $red !important;
 }
 
 .grey {
-  background-color: $grey;
+  background-color: $grey !important;
+}
+
+.activated, button.timer:hover {
+  background-color: darken($color: $buttons-color, $amount: 10) !important;
 }
 
 .row {
@@ -49,51 +80,51 @@ h1 {
 
 .column-head {
   background-color: $header-color;
-  border-bottom: 1px solid black;
-}
-
-.column-no-space {
-  font-size: 0;
+  border-bottom: 1px solid rgb(127, 140, 141);
 }
 
 .row-timer {
-  height: 10vh;
   background-color: $buttons-color;
 }
 
-.row-timer button {
+.row-timer button, .row-timer-actions button {
   height: 100%;
-  width: 100vw;
   font-size: medium;
   background-color: $buttons-color;
 }
 
-.row-timer .button {
+.row-timer .button, .row-timer-actions .button {
   margin: 0;
   border: 0;
   border-radius: 0;
   width: 100%;
 }
 
-.row-timer .button:focus {
-  background-color: darken($color: $buttons-color, $amount: 10);
-}
-
 .row-clock {
-  height: 40vh;
+  position: absolute;
+  top: 40%;
 }
 
-.row-clock .column {
-  line-height: 40vh;
+.row-clock h2 {
+  margin: 0;
 }
 
-.row-clock .column span {
-  font-size: 15rem;
+.row-timer-actions {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: $action-color;
 }
 
 /* Larger than mobile screen */
 @media (min-width: 40.0rem) {
+  h2 {
+    font-size: 15rem;
+  }
 
+  .row, .column {
+    padding: 0 !important;
+  }
 }
 
 /* Larger than tablet screen */

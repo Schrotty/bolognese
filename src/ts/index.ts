@@ -3,6 +3,7 @@ import { Howl } from 'howler';
 class Bolognese {
     alarm: any;
     timer: Element;
+    timerSub: Element;
     time: number;
     interval: number;
 
@@ -13,6 +14,7 @@ class Bolognese {
 
     constructor(time: number) {
         this.timer = document.querySelector("#timer");
+        this.timerSub = document.querySelector("#timer-sub");
 
         document.querySelector("#pomodoro-button").addEventListener("click", () => this.updateTimer(25));
         document.querySelector("#l-break-button").addEventListener("click", () => this.updateTimer(20));
@@ -21,6 +23,8 @@ class Bolognese {
         document.querySelector("#start").addEventListener("click", () => this.startTimer());
         document.querySelector("#stop").addEventListener("click", () => this.stopTimer());
         document.querySelector("#reset").addEventListener("click", () => this.resetTimer());
+
+        document.querySelectorAll(".timer").forEach(elem => this.registerButtonhandle(elem));
 
         this.alarm = new Howl({
             volume: 0.5,
@@ -57,7 +61,8 @@ class Bolognese {
                 if (this.sub_dis < 10) sub = "0" + this.sub_dis;
                 if (this.display < 10) pre = 0 + this.display.toString();
     
-                this.timer.textContent = pre + ":" + sub;
+                this.timer.textContent = pre;
+                this.timerSub.textContent = sub;
                 if(this.counter === 0) {
                     clearInterval(this.interval);
     
@@ -85,9 +90,17 @@ class Bolognese {
     
         var value = t.toString();
         if (t < 10) value = 0 + value;
-        this.timer.textContent = value + ":" + "00"
+        this.timer.textContent = value;
+        this.timerSub.textContent = "00";
     
         this.initTimer();
+    }
+
+    registerButtonhandle(element: Element) {
+        element.addEventListener("click", () => {
+            document.querySelectorAll(".timer").forEach(elem => elem.classList.remove("activated"));
+            element.classList.add("activated");
+        });
     }
 }
 

@@ -3,7 +3,7 @@
         <title>BologneseTime</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style/normalize.css">
         <link rel="stylesheet" href="style/milligram.css">
 
@@ -12,34 +12,34 @@
 
     <body>
         <div class="content">
-            <div class="row">
+            <div class="row row-head">
                 <div class="column column-head column-no-space">
-                    <h1>BologneseTime</h1>
+                    <h1>BologneseTime <small>by Schrotty</small></h1>
                 </div>
             </div>
 
             <div class="row row-timer center">
-                <div class="column">
-                    <button id="pomodoro-button" class="button" href="#">Pomodoro</button>
+                <div class="column column-no-space">
+                    <button id="pomodoro-button" class="button timer activated" href="#">Pomodoro</button>
                 </div>
 
                 <div class="column column-no-space">
-                    <button id="l-break-button" class="button" href="#">Long Break</button>
+                    <button id="l-break-button" class="button timer" href="#">Long Break</button>
                 </div>
 
                 <div class="column column-no-space">
-                    <button id="s-break-button" class="button" href="#">Short Break</button>
+                    <button id="s-break-button" class="button timer" href="#">Short Break</button>
                 </div>
             </div>
 
             <div class="row center row-clock">
                 <div class="column">
-                    <span id="timer">25:00</span>
+                    <h2><span id="timer">25</span><sup id="timer-sub">00</sup></h2>
                 </div>
             </div>
 
             <div class="row row-timer-actions center">
-                <div class="column">
+                <div class="column column-no-space">
                     <button id="start" class="button green" href="#">Start</button>
                 </div>
 
