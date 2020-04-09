@@ -1,6 +1,9 @@
 <html>
     <head>
         <title>Test</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style/normalize.css">
         <link rel="stylesheet" href="style/milligram.css">
 
@@ -8,6 +11,48 @@
     </head>
 
     <body>
-        # Test
+        <div class="content">
+            <div class="row">
+                <div class="column column-head column-no-space">
+                    <h1>BologneseTime</h1>
+                </div>
+            </div>
+
+            <div class="row row-timer center">
+                <div class="column">
+                    <button id="pomodoro-button" class="button" href="#">Pomodoro</button>
+                </div>
+
+                <div class="column column-no-space">
+                    <button id="l-break-button" class="button" href="#">Long Break</button>
+                </div>
+
+                <div class="column column-no-space">
+                    <button id="s-break-button" class="button" href="#">Short Break</button>
+                </div>
+            </div>
+
+            <div class="row center row-clock">
+                <div class="column">
+                    <span id="timer">25:00</span>
+                </div>
+            </div>
+
+            <div class="row row-timer-actions center">
+                <div class="column">
+                    <button id="start" class="button green" href="#">Start</button>
+                </div>
+
+                <div class="column column-no-space">
+                    <button id="stop" class="button red" href="#">Stop</button>
+                </div>
+
+                <div class="column column-no-space">
+                    <button id="reset" class="button grey" href="#">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="script/bundle.js"></script>
     </body>
 </html>
