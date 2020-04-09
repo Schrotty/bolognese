@@ -4,8 +4,24 @@
   "description": "A simple pomodoro timer/ tool",
   "main": "index.js",
   "scripts": {
+    "sass-watch": "sass --watch src/sass/style.scss dist/style/style.css",
+    "copy-files": "copyfiles -f node_modules/milligram/dist/* dist/style && copyfiles -f node_modules/normalize.css/normalize.css dist/style && copyfiles -f src/index.html dist",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Schrotty",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/lodash": "^4.14.149",
+    "copyfiles": "^2.2.0",
+    "sass": "^1.26.3",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "milligram": "^1.3.0",
+    "normalize.css": "^8.0.1"
+  }
 }
