@@ -1,11 +1,21 @@
 <html>
     <head>
         <title>BologneseTime</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="apple-mobile-web-app-title" content="BologneseTime">
+        <meta name="application-name" content="BologneseTime">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#e6e6e6">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style/normalize.css">
         <link rel="stylesheet" href="style/milligram.css">
+        <link rel="stylesheet" href="style/animate.min.css">
 
         <link rel="stylesheet" href="style/style.css">
     </head>
@@ -49,6 +59,57 @@
 
                 <div class="column column-no-space">
                     <button id="reset" class="button grey" href="#">Reset</button>
+                </div>
+
+                <div id="settings-button" class="column column-no-space">
+                    <button id="settings" class="button" href="#">Settings</button>
+                </div>
+            </div>
+
+            <div id="overlay" class="overlay hidden">
+                <div class="overlay-content">
+                    <div class="row">
+                        <div class="column">
+                            <h3>Settings</h3>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="column">
+                            <label for="c-pomodoro">Custom 'Pomodoro' Timer:</label>
+                            <input type="number" min="1" step="1" id="c-pomodoro">
+                        </div>
+                    
+                        <div class="column">
+                            <label for="c-l-break">Custom 'Long Break' Timer:</label>
+                            <input type="number" min="1" step="1" id="c-l-break">
+                        </div>
+
+                        <div class="column">
+                            <label for="c-s-break">Custom 'Short Break' Timer:</label>
+                            <input type="number" min="1" step="1" id="c-s-break">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="column">
+                            <label for="custom-alarm">Alarm Sound:</label>
+                            <select id="custom-alarm"></select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="column">
+                            <label for="volume-control">Volume Control:</label>
+                            <input type="range" min="0" max="1" step="0.1" id="volume-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row-settings-actions center">
+                    <div class="column">
+                        <button id="settings-close" class="button red" href="#">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
