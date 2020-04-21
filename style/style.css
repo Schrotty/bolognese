@@ -54,6 +54,13 @@ svg:hover {
   color: #8e44ad;
 }
 
+hr {
+  border: 0;
+  border-bottom: 0.1rem solid #d1d1d1;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
 select {
   background-image: linear-gradient(45deg, transparent 50%, #2c3e50 50%), linear-gradient(135deg, #2c3e50 50%, transparent 50%), linear-gradient(to right, #ccc, #ccc);
   background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
@@ -73,18 +80,12 @@ select:focus {
   width: 25px;
   height: 17px;
   vertical-align: middle;
-  margin: 0;
 }
 
 .description {
   font-size: medium;
   font-weight: 300;
   vertical-align: top;
-}
-
-.row .column.column-5 {
-  flex: 0 0 5%;
-  max-width: 5%;
 }
 
 .content {
@@ -182,12 +183,49 @@ select:focus {
 }
 
 .row-timer-actions, .row-settings-actions {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   background-color: #34495e;
 }
 
+.row-settings-actions {
+  position: relative;
+}
+
+#alarm-overlay {
+  background-color: rgba(44, 62, 80, 0.9);
+}
+
+#alarm-overlay div {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#alarm-overlay div svg {
+  margin: auto;
+  display: block;
+  text-align: center;
+  color: white;
+  width: 164px;
+  height: 164px;
+  stroke-width: 1px;
+  animation: ring 400ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes ring {
+  0% {
+    transform: rotate(25deg);
+  }
+  100% {
+    transform: rotate(-25deg);
+  }
+}
 .overlay {
   position: fixed;
   left: 0;
@@ -200,9 +238,12 @@ select:focus {
 }
 
 .overlay-content {
+  position: relative;
+  height: calc(100% - 38px);
   padding-top: 15px;
   padding-left: 15px;
   padding-right: 15px;
+  overflow: scroll;
 }
 
 .overlay-content .column input,
@@ -232,6 +273,11 @@ select:focus {
 
   .row, .column {
     padding: 0 !important;
+  }
+
+  .row .column.column-5 {
+    flex: 0 0 5%;
+    max-width: 5%;
   }
 }
 /* Larger than tablet screen */
