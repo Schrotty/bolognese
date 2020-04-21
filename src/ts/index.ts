@@ -182,7 +182,7 @@ class Bolognese {
                             return;
                         }
 
-                        if (this.timerType == Timer.ShortBreak) {
+                        if (this.timerType == Timer.ShortBreak || this.timerType == Timer.LongBreak) {
                             this.pomodoroButton.click();
                             return;
                         }
