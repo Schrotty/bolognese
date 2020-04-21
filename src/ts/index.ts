@@ -349,7 +349,7 @@ class Bolognese {
                 var c = +Settings.load("cur_break");
                 var m = +Settings.load("max_break");
                 var d = m - c;
-                
+
                 text = "Just " + d + " more pomodoro session(s) till a long break!";
                 if (d === m) {
                     text = "You've earned you a long break!";
@@ -358,7 +358,7 @@ class Bolognese {
 
             this.notification = new Notification(title, {
                 body: text,
-                icon: '../android-chrome-192x192.png'
+                icon: 'android-chrome-192x192.png'
             });
         }
     }
