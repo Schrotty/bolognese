@@ -31,6 +31,7 @@
                 </div>
             </div>
 
+            <!-- TIMER BUTTONS -->
             <div class="row row-timer center">
                 <div class="column column-no-space">
                     <button id="pomodoro-button" class="button timer activated" href="#">Pomodoro</button>
@@ -45,19 +46,21 @@
                 </div>
             </div>
 
+            <!-- TIMER -->
             <div class="row center row-clock">
                 <div class="column">
                     <h2><span id="timer"></span><sup id="timer-sub">00</sup></h2>
                 </div>
             </div>
 
+            <!-- ACTION BUTTONS -->
             <div class="row row-timer-actions center">
                 <div class="column column-no-space">
                     <button id="start" class="button green" href="#">Start</button>
                 </div>
 
                 <div class="column column-no-space">
-                    <button id="stop" class="button red" href="#">Stop</button>
+                    <button id="stop" class="button red" href="#">Pause</button>
                 </div>
 
                 <div class="column column-no-space">
@@ -69,6 +72,7 @@
                 </div>
             </div>
 
+            <!-- SETTINGS -->
             <div id="overlay" class="overlay hidden">
                 <div class="overlay-content">
                     <div class="row">
@@ -97,6 +101,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <hr>
     
                     <div class="row">
                         <div class="column">
@@ -115,6 +121,8 @@
                         </div>
                     </div>
 
+                    <hr>
+
                     <div class="row">
                         <div class="column">
                             <label for="custom-alarm">Alarm Sound:</label>
@@ -132,10 +140,40 @@
                         </div>
                     </div>
 
+                    <!-- ADDITIONAL ALARM SETTINGS -->
+                    <div class="row">
+                        <div class="column">
+                            <label for="infinite-alarm">Infinite Alarm:</label>
+                            <span class="description">The alarm sound will ring till manually deactivated</span>
+                            <input id="infinite-alarm" type="checkbox" class="checkbox">
+                        </div>
+                    </div>
+
+                    <!-- VOLUME CONTROL -->
                     <div class="row">
                         <div class="column">
                             <label for="volume-control">Volume Control:</label>
                             <input type="range" min="0" max="1" step="0.1" id="volume-control">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- UTILITIES -->
+                    <div class="row">
+                        <div class="column">
+                            <label>Utilities:</label>
+                            <div class="row">
+                                <div class="column">
+                                    <span class="description">Show timer in browser tab:</span>
+                                    <input id="tab-timer" type="checkbox" class="checkbox">
+                                </div>
+
+                                <div class="column">
+                                    <span class="description">Display notifications:</span>
+                                    <input id="enable-notification" type="checkbox" class="checkbox">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -147,6 +185,7 @@
                 </div>
             </div>
 
+            <!-- ALARM OVERLAY -->
             <div id="alarm-overlay" class="overlay hidden">
                 <div id="test">
                     <i data-feather="bell"></i>

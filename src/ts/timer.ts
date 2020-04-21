@@ -1,5 +1,5 @@
 export enum Timer {
-    Pomodoro,
-    LongBreak,
-    ShortBreak
+    Pomodoro = "Pomodoro",
+    LongBreak = "Long Break",
+    ShortBreak = "Short Break"
 }

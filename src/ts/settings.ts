@@ -11,6 +11,10 @@ export class Settings {
         return localStorage.getItem(key);
     }
 
+    static loadBoolean(key: string): boolean {
+        return JSON.parse(Settings.load(key));
+    }
+
     static exist(key: string): boolean {
         return Settings.load(key) != null;
     }

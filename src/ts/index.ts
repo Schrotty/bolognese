@@ -22,7 +22,13 @@ class Bolognese {
     pomodoroAutoCheckbox: HTMLInputElement;
     pomodoroBreaksInput: HTMLInputElement;
 
+    infiniteAlarmCheckbox: HTMLInputElement;
+    tabTimerCheckbox: HTMLInputElement;
+    notificationCheckbox: HTMLInputElement;
+
     alarmOverlay: Element;
+
+    notification: Notification;
 
     constructor(time: number) {
         if ('serviceWorker' in navigator) {
@@ -69,6 +75,30 @@ class Bolognese {
             this.animateCSS("#test", "bounceOut", () => {
                 this.alarmOverlay.classList.add("hidden");
             });
+
+            this.alarm.fade(Settings.load("volume"), 0, 2000);
+        });
+
+        this.infiniteAlarmCheckbox = document.querySelector("#infinite-alarm");
+        this.infiniteAlarmCheckbox.checked = Settings.loadBoolean("infinite-alarm");
+        this.infiniteAlarmCheckbox.addEventListener("change", () => {
+            Settings.store("infinite-alarm", this.infiniteAlarmCheckbox.checked);
+        });
+
+        this.tabTimerCheckbox = document.querySelector("#tab-timer");
+        this.tabTimerCheckbox.checked = Settings.loadBoolean("tab-timer");
+        this.tabTimerCheckbox.addEventListener("change", () => {
+            Settings.store("tab-timer", this.tabTimerCheckbox.checked);
+        });
+
+        this.notificationCheckbox = document.querySelector("#enable-notification");
+        this.notificationCheckbox.checked = Settings.loadBoolean("enable-notification");
+        this.notificationCheckbox.addEventListener("change", () => {
+            if (Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+
+            Settings.store("enable-notification", this.notificationCheckbox.checked);
         });
 
         document.querySelector("#start").addEventListener("click", () => this.startTimer());
@@ -138,7 +168,8 @@ class Bolognese {
             if (Settings.load("alarm") != "-") {
                 this.alarm = new Howl({
                     volume: Settings.load("volume"),
-                    html5: true,
+                    html5: false,
+                    loop: Settings.loadBoolean("infinite-alarm"),
                     src: ['sounds/' + Settings.load("alarm") + '.mp3']
                 });
             }
@@ -158,13 +189,12 @@ class Bolognese {
 
                 this.timer.textContent = pre;
                 this.timerSub.textContent = sub;
-                if (Settings.load("timer-in-title")) this.refreshTitle(pre + ":" + sub);
+                if (Settings.loadBoolean("tab-timer")) this.refreshTitle(pre + ":" + sub);
                 if (this.counter === 0) {
                     this.alarm.play();
-                    this.is_ticking = false;
-                    clearInterval(this.interval);
+                    this.stopTimer();
 
-                    if (JSON.parse(Settings.load("kill-it-alarm"))) {
+                    if (Settings.loadBoolean("infinite-alarm")) {
                         this.alarmOverlay.classList.remove("hidden");
                         this.animateCSS("#alarm-overlay", "bounceInDown", null);
                     }
@@ -174,18 +204,22 @@ class Bolognese {
                             Settings.store("cur_break", +Settings.load("cur_break") + 1);
                             if (Settings.load("cur_break") < Settings.load("max_break")) {
                                 this.shortBreakButton.click();
-                                return;
                             }
 
-                            Settings.store("cur_break", 0);
-                            this.longBreakButton.click();
-                            return;
+                            if (Settings.load("cur_break") >= Settings.load("max_break")) {
+                                Settings.store("cur_break", 0);
+                                this.longBreakButton.click();
+                            }
                         }
 
                         if (this.timerType == Timer.ShortBreak || this.timerType == Timer.LongBreak) {
                             this.pomodoroButton.click();
-                            return;
                         }
+                    }
+
+                    this.resetTitle();
+                    if (Settings.loadBoolean("enable-notification")) {
+                        this.constructNotification();
                     }
                 }
             }, 1000)
@@ -289,6 +323,10 @@ class Bolognese {
         document.title = "BologneseTime - " + time;
     }
 
+    resetTitle() {
+        document.title = "BologneseTime";
+    }
+
     initSettings() {
         Settings.storeIfNull("pomodoro", 25);
         Settings.storeIfNull("long-break", 20);
@@ -298,8 +336,31 @@ class Bolognese {
         Settings.storeIfNull("pomodoro_auto", false);
         Settings.storeIfNull("max_break", 4);
         Settings.storeIfNull("cur_break", 0);
-        Settings.storeIfNull("timer-in-title", false);
-        Settings.storeIfNull("kill-it-alarm", false);
+        Settings.storeIfNull("tab-timer", false);
+        Settings.storeIfNull("infinite-alarm", false);
+        Settings.storeIfNull("enable-notification", false);
+    }
+
+    constructNotification() {
+        if (Notification.permission === "granted") {
+            var title = this.timerType.toString() + " finished!";
+            var text = "Your timer has finished!";
+            if (Settings.loadBoolean("pomodoro_auto")) {
+                var c = +Settings.load("cur_break");
+                var m = +Settings.load("max_break");
+                var d = m - c;
+                
+                text = "Just " + d + " more pomodoro session(s) till a long break!";
+                if (d === m) {
+                    text = "You've earned you a long break!";
+                }
+            }
+
+            this.notification = new Notification(title, {
+                body: text,
+                icon: '../android-chrome-192x192.png'
+            });
+        }
     }
 }
 
