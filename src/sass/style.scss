@@ -3,11 +3,16 @@ $primary-color: #333;
 $header-color: rgb(243, 243, 243);
 $buttons-color: rgb(142, 68, 173);
 $action-color: rgb(52, 73, 94);
+$border-color: rgb(127, 140, 141);
 
 /* COLORS */
-$green: rgb(39, 174, 96);
+$green: rgb(29, 124, 69);
 $red: rgb(192, 57, 43);
 $grey: rgb(44, 62, 80);
+$purple: #8e44ad;
+
+/* VALUES */
+$darken: 10%;
 
 /* Base style */
 body {
@@ -49,6 +54,68 @@ button {
   font-weight: 400 !important;
 }
 
+select, input[type=range], input[type=checkbox] {
+  cursor: pointer;
+}
+
+svg {
+  display: inline-block;
+  vertical-align: middle;
+  color: black;
+}
+
+svg:hover {
+  color: $purple;
+}
+
+// CUSTOM SELECT
+// CREDIT: https://codepen.io/vkjgr/pen/VYMeXp
+select {
+  background-image:
+    linear-gradient(45deg, transparent 50%, $grey 50%),
+    linear-gradient(135deg, $grey 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+}
+
+select:focus {
+  background-image:
+    linear-gradient(45deg, $grey 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, $grey 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+  outline: 0;
+}
+
+.checkbox {
+  width: 25px;
+  height: 17px;
+  vertical-align: middle;
+  margin: 0;
+}
+
+.description {
+  font-size: medium;
+  font-weight: 300;
+  vertical-align: top;
+}
+
 .content {
   height: 100%;
 }
@@ -57,12 +124,46 @@ button {
   background-color: $green !important;
 }
 
+.green:hover {
+  background-color: darken($green, $darken) !important;
+}
+
 .red {
   background-color: $red !important;
 }
 
+.red:hover {
+  background-color: darken($red, $darken) !important;
+}
+
 .grey {
   background-color: $grey !important;
+}
+
+.grey:hover {
+  background-color: darken($grey, $darken) !important;
+}
+
+.purple {
+  background-color: $purple !important;
+}
+
+.purple:hover {
+  background-color: darken($purple, $darken) !important;
+}
+
+.hidden {
+  display: none;
+}
+
+.icon {
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+}
+
+.icon:hover, .icon:focus {
+  background-color: transparent;
 }
 
 .activated, button.timer:hover {
@@ -80,20 +181,20 @@ button {
 
 .column-head {
   background-color: $header-color;
-  border-bottom: 1px solid rgb(127, 140, 141);
+  border-bottom: 1px solid $border-color;
 }
 
 .row-timer {
   background-color: $buttons-color;
 }
 
-.row-timer button, .row-timer-actions button {
+.row-timer button, .row-timer-actions button, .row-settings-actions button {
   height: 100%;
   font-size: medium;
   background-color: $buttons-color;
 }
 
-.row-timer .button, .row-timer-actions .button {
+.row-timer .button, .row-timer-actions .button, .row-settings-actions .button {
   margin: 0;
   border: 0;
   border-radius: 0;
@@ -109,11 +210,81 @@ button {
   margin: 0;
 }
 
-.row-timer-actions {
+.row-timer-actions, .row-settings-actions {
   position: absolute;
   bottom: 0;
   width: 100%;
   background-color: $action-color;
+}
+
+#alarm-overlay {
+  background-color: transparentize($grey, $amount: 0.1);
+}
+
+#alarm-overlay div {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#alarm-overlay div svg {
+  margin: auto;
+  display: block;
+  text-align: center;
+  color: white;
+  width: 164px;
+  height: 164px;
+  stroke-width: 1px;
+  animation: ring 400ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes ring {
+  0% {
+    transform: rotate(25deg);
+  }
+
+  100% {
+    transform: rotate(-25deg);
+  }
+}
+
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  background-color: $header-color;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.overlay-content {
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.overlay-content .column input,
+.overlay-content .column select, 
+.overlay-content .column button {
+  border-radius: 0;
+  font-size: medium;
+}
+.overlay-content .column input[type="range"] {
+  width: 100%;
+}
+
+.overlay-content .column {
+  margin-right: 15px;
+}
+
+.overlay-content .column:last-of-type {
+  margin-right: 0;
 }
 
 /* Larger than mobile screen */
@@ -124,6 +295,11 @@ button {
 
   .row, .column {
     padding: 0 !important;
+  }
+
+  .row .column.column-5 {
+    flex: 0 0 5%;
+    max-width: 5%;
   }
 }
 
